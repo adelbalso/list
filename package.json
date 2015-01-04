@@ -1,0 +1,19 @@
+{
+  "name": "list",
+  "version": "0.0.1",
+  "description": "Collaborative Todo List",
+  "main": "application.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adelbalso/list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adelbalso/list/issues"
+  },
+  "homepage": "https://github.com/adelbalso/list"
+}
