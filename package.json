@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/adelbalso/list/issues"
   },
-  "homepage": "https://github.com/adelbalso/list"
+  "homepage": "https://github.com/adelbalso/list",
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
 }
