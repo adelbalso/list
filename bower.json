@@ -1,0 +1,21 @@
+{
+  "name": "list",
+  "version": "0.0.1",
+  "homepage": "https://github.com/adelbalso/list",
+  "authors": [
+    "Adrian Del Balso <a.delbalso@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "directory": "app/bower_components",
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "firebase": "~2.0.6"
+  }
+}

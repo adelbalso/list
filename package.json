@@ -19,6 +19,7 @@
   "devDependencies": {
     "browser-sync": "^1.8.3",
     "gulp": "^3.8.10",
-    "gulp-browserify": "^0.5.0"
+    "gulp-browserify": "^0.5.0",
+    "main-bower-files": "^2.4.1"
   }
 }
