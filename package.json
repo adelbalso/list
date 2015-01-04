@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/adelbalso/list",
   "devDependencies": {
+    "browser-sync": "^1.8.3",
     "gulp": "^3.8.10"
   }
 }
