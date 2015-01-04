@@ -18,7 +18,7 @@ gulp.task('serve', function() {
   gulp.watch(['*.html', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, reload);
 });
 
-gulp.task('build',['js','css','html']);
+gulp.task('build',['bower','js','css','html']);
 
 gulp.task('js',function(){
   gulp.src('app/scripts/main.js')
