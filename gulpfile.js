@@ -3,44 +3,86 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var browserify = require('gulp-browserify');
 var mainBowerFiles = require('main-bower-files');
+var stylus = require('gulp-stylus');
+var nib = require('nib');
 
-gulp.task('default', function() {
-  // place code for your default task here
-});
 
-gulp.task('serve', function() {
+var cssFiles  = ["app/styles/**/*.styl"],
+    jsFiles   = ["app/scripts/*.js"],
+    htmlFiles = ["app/*.html"];
+
+gulp.task('default', ['serve']);
+
+// DEV SERVER:
+gulp.task('serve', ['serve-stylus'], function() {
   browserSync({
     server: {
-      baseDir: 'app'
+      baseDir: ['app','.tmp']
     }
   });
 
-  gulp.watch(['*.html', 'styles/**/*.css', 'scripts/**/*.js'], {cwd: 'app'}, reload);
+  gulp.watch(htmlFiles, reload);
+  gulp.watch(jsFiles, reload);
+  gulp.watch(cssFiles, ['serve-stylus']);
 });
 
-gulp.task('build',['bower','js','css','html']);
+gulp.task('serve-stylus', function () {
+  return gulp.src(cssFiles)
+    .pipe(stylus({use: [nib()]}))
+    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(reload({stream:true}))
+    .on('error',function(error){
+      console.error('' + error);
+    });
+});
 
-gulp.task('js',function(){
-  gulp.src('app/scripts/main.js')
-    .pipe(browserify({
-      debug: true
-    }))
+// BUILD TASK:
+gulp.task('build',['build-bower','build-js','build-css','html']);
+
+gulp.task('build-js',function(){
+  gulp.src(jsFiles)
     .pipe(gulp.dest('./release/scripts'));
 });
 
-gulp.task('css',function(){
-  gulp.src('app/styles/main.css')
+gulp.task('build-css',function(){
+  gulp.src(cssFiles)
+    .pipe(stylus({use: [nib()]}))
     .pipe(gulp.dest('./release/styles'));
 });
 
 gulp.task('html',function(){
-  gulp.src('app/index.html')
+  gulp.src(htmlFiles)
     .pipe(gulp.dest('./release'));
 })
 
 gulp.task('bower', function() {
     gulp.src(mainBowerFiles(), { base: 'app/bower_components' })
         .pipe(gulp.dest('./release/bower_components'))
-    // console.log(mainBowerFiles());
-        // console.log(process.env.NODE_ENV);
 });
+
+
+// Workaround for https://github.com/gulpjs/gulp/issues/71
+var origSrc = gulp.src;
+gulp.src = function () {
+    return fixPipe(origSrc.apply(this, arguments));
+};
+function fixPipe(stream) {
+    var origPipe = stream.pipe;
+    stream.pipe = function (dest) {
+        arguments[0] = dest.on('error', function (error) {
+            var nextStreams = dest._nextStreams;
+            if (nextStreams) {
+                nextStreams.forEach(function (nextStream) {
+                    nextStream.emit('error', error);
+                });
+            } else if (dest.listeners('error').length === 1) {
+                throw error;
+            }
+        });
+        var nextStream = fixPipe(origPipe.apply(this, arguments));
+        (this._nextStreams || (this._nextStreams = [])).push(nextStream);
+        return nextStream;
+    };
+    return stream;
+}
+
