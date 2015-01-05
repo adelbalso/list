@@ -9,6 +9,7 @@ $(function(){
 		var $resultsList = $('.list-items');
 
 		$resultsList.empty();
+
 		$.each(tasks,function(index, task){
 			$resultsList.append('<li class="list-item">' + task + '</li>' );
 		})
@@ -20,8 +21,13 @@ $(function(){
 		    val = $input.val();
 
 	    tasks.push(val);
+	    // $form.hide();
+	    $input.val('');
 	    redrawTasks();
+	    // $form.show();
 
 		e.preventDefault();
 	});
+
+	redrawTasks();
 });

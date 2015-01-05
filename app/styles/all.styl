@@ -1,7 +1,81 @@
 @import 'nib'
+@import 'reset'
+
+// VARIABLES
+
+$buffer = 8px
+$bg = #fafafa
+
+// MIXINS
+
+test()
+  border: 1px solid blue  
+
+btn-states()
+  background: #f3f3f3
+  padding: $buffer * 2
+  &:hover
+      background: #eee
+  &:active
+    background: #ddd
+  &:focus
+    outline: none
+    
+
+// STYLEZ
+
+*
+  transition: all .15s
+  box-sizing: border-box
 
 body
-	background: green
+	background: $bg
+  font-family: "helvetica neue"
+  font-size: 18px
+  
 	
+  .content
+    max-width: 480px
+    margin: 0 auto
+    text-align: center
+
 	input
-		border-radius: 12px
+		width: 78%
+    display: inline-block  
+    border: none
+    padding: $buffer * 2
+    font-family: "helvetica neue"
+    font-size: 18px
+    border-left: 8px solid #f3f3f3
+    height: 60px
+    background: white
+    
+    &:hover
+      background: #f3f3f3
+    
+    &:focus
+      outline: none
+    
+  button
+    font-family: "helvetica neue"
+    font-size: 18px
+    display: inline-block
+    border: none
+    width: 20%
+    btn-states()
+    
+    &.btn-add-task
+      height: 60px
+      font-size: 18px
+      
+  ul
+    list-style-type: none
+    text-align left
+    padding-left: 0px
+      width: 100%
+    
+    li
+      border-left: 8px solid #f3f3f3
+      margin-bottom: $buffer * 2
+      padding: $buffer ($buffer * 2)
+  
