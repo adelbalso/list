@@ -51,8 +51,8 @@ gulp.task('build',['build-bower','build-js','build-css','html']);
 
 gulp.task('build-js',function(){
   gulp.src(jsFiles)
-    .pipe(browserify)
-    .pipe(gulp.dest('./release/scripts'));
+    .pipe(browserify())
+    .pipe(gulp.dest('./release/js'));
 });
 
 gulp.task('build-css',function(){
