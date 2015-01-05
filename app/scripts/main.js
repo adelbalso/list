@@ -1,6 +1,8 @@
-var tasks = new Firebase("https://blinding-torch-6766.firebaseio.com/");
+var _ = require('underscore');
 
-// var tasks = [];
+// var tasks = new Firebase("https://blinding-torch-6766.firebaseio.com/");
+
+var tasks = ['This is a todo item','Pretty nifty stuff'];
 
 $(function(){
 	var redrawTasks = function(){

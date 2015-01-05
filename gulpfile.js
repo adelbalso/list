@@ -14,7 +14,7 @@ var cssFiles  = ["app/styles/**/*.styl"],
 gulp.task('default', ['serve']);
 
 // DEV SERVER:
-gulp.task('serve', ['serve-stylus'], function() {
+gulp.task('serve', ['serve-stylus','serve-browserify'], function() {
   browserSync({
     server: {
       baseDir: ['app','.tmp']
@@ -22,7 +22,7 @@ gulp.task('serve', ['serve-stylus'], function() {
   });
 
   gulp.watch(htmlFiles, reload);
-  gulp.watch(jsFiles, reload);
+  gulp.watch(jsFiles,  ['serve-browserify']);
   gulp.watch(cssFiles, ['serve-stylus']);
 });
 
@@ -36,11 +36,22 @@ gulp.task('serve-stylus', function () {
     });
 });
 
+gulp.task('serve-browserify', function () {
+  return gulp.src(jsFiles)
+    .pipe(browserify())
+    .pipe(gulp.dest('.tmp/js'))
+    .pipe(reload({stream:true}))
+    .on('error',function(error){
+      console.error('' + error);
+    });
+});
+
 // BUILD TASK:
 gulp.task('build',['build-bower','build-js','build-css','html']);
 
 gulp.task('build-js',function(){
   gulp.src(jsFiles)
+    .pipe(browserify)
     .pipe(gulp.dest('./release/scripts'));
 });
 
