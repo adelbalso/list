@@ -55,7 +55,7 @@ gulp.task('html',function(){
     .pipe(gulp.dest('./release'));
 })
 
-gulp.task('bower', function() {
+gulp.task('build-bower', function() {
     gulp.src(mainBowerFiles(), { base: 'app/bower_components' })
         .pipe(gulp.dest('./release/bower_components'))
 });
