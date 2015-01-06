@@ -9,9 +9,11 @@ $(function(){
 		var $resultsList = $('.list-items');
 
 		$resultsList.empty();
-
-		$.each(tasks,function(index, task){
-			$resultsList.append('<li class="list-item">' + task + '</li>' );
+		var cleanTasks = _.map(tasks,function(i){ return $.trim(i); });
+		    cleanTasks = _.uniq(cleanTasks),
+		    cleanTasks = _.compact(cleanTasks);
+		$.each(cleanTasks,function(index, task){
+			$resultsList.append('<li class="list-item"><div class="li-content"><input type="checkbox" class="checkbox"><span class="task-name">' + task + '</span></div></li>' );
 		})
 	}
 	
@@ -30,4 +32,16 @@ $(function(){
 	});
 
 	redrawTasks();
+
+	$(".list-item").click(function() {
+		var $task = $(this).find('.task-name')
+			val = $task.html()
+
+		if($(this).find('#todo-submission').length == 0) {
+			$(this).find('.li-content').hide();
+			$(this).html('<input id="todo-submission" type="text"><button class="btn-submit btn-add-task">done</button>');
+			$(this).find('input').val(val);
+		}
+	});
+
 });

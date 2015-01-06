@@ -4,7 +4,11 @@
 // VARIABLES
 
 $buffer = 8px
-$bg = #fafafa
+$font-family = "helvetica neue"
+
+$bg = #fefefe
+$primary = #454E55
+$secondary = #eeeeee
 
 // MIXINS
 
@@ -15,14 +19,14 @@ btn-states()
   background: #f3f3f3
   padding: $buffer * 2
   &:hover
-      background: #eee
+      background: $secondary
   &:active
     background: #ddd
   &:focus
     outline: none
     
 
-// STYLEZ
+// BASE STYLEZ
 
 *
   transition: all .15s
@@ -30,25 +34,41 @@ btn-states()
 
 body
 	background: $bg
-  font-family: "helvetica neue"
+  font-family: $font-family
   font-size: 18px
+  color: $body-font
+  font-weight: 200
+
+h1, h2, h3, h4, h5, h6
+  font-weight: 100
   
-	
+// ::-webkit-input-placeholder
+//    color: white
+// :-moz-placeholder
+//    color: white  
+// ::-moz-placeholder
+//    color: white
+// :-ms-input-placeholder
+//    color: white
+
+// FO REAL STYLEZ
+
   .content
     max-width: 480px
     margin: 0 auto
     text-align: center
 
 	input
-		width: 78%
-    display: inline-block  
     border: none
     padding: $buffer * 2
-    font-family: "helvetica neue"
+    font-family: $font-family
     font-size: 18px
-    border-left: 8px solid #f3f3f3
+    font-weight: 200
     height: 60px
-    background: white
+    background: none;
+    border: 1px solid transparent
+    border-bottom: 1px solid $secondary
+    color: $primary
     
     &:hover
       background: #f3f3f3
@@ -56,11 +76,18 @@ body
     &:focus
       outline: none
     
+    &#todo-submission
+      width: 78%
+      display: inline-block
+      
+    &.checkbox
+      height: auto
+    
   button
-    font-family: "helvetica neue"
+    font-family: $font-family
     font-size: 18px
     display: inline-block
-    border: none
+    border: 1px solid $secondary
     width: 20%
     btn-states()
     
@@ -72,10 +99,21 @@ body
     list-style-type: none
     text-align left
     padding-left: 0px
-      width: 100%
+    width: 100%
     
-    li
-      border-left: 8px solid #f3f3f3
-      margin-bottom: $buffer * 2
-      padding: $buffer ($buffer * 2)
+    li      
+      .task-name
+        margin-left: $buffer * 2
+        
+      .li-content
+        padding: $buffer * 2
+      
+      &:hover
+        background-color: #f3f3f3
+        background-image: url('../assets/images/edit_icon.svg')
+        background-repeat: no-repeat
+        background-size: 20px
+        background-position: right 20px top 16px
+        transition:none
+        
   
